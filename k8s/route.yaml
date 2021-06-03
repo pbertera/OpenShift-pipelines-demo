@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: mkdocs-demo
+  name: mkdocs-demo
+spec:
+  port:
+    targetPort: 8000-tcp
+  to:
+    kind: Service
+    name: mkdocs-demo

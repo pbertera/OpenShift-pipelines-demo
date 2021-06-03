@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mkdocs-demo
+  name: mkdocs-demo
+spec:
+  ports:
+  - name: 8000-tcp
+    port: 8000
+    targetPort: 8000
+    protocol: TCP
+  selector:
+    app: mkdocs-demo

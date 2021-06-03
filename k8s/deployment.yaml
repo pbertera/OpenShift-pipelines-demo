@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mkdocs-demo
+  name: mkdocs-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mkdocs-demo
+  template:
+    metadata:
+      labels:
+        app: mkdocs-demo
+    spec:
+      containers:
+      - image: quay.io/pbertera/mkdocs:latest
+        imagePullPolicy: Always
+        name: mkdocs-demo
+        args: ["serve", "0.0.0.0:8000"]
+        ports:
+        - containerPort: 8080
+          protocol: TCP
