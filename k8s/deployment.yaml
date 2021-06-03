@@ -14,6 +14,17 @@ spec:
       labels:
         app: mkdocs-demo
     spec:
+      initContainers:
+      - image: quay.io/pbertera/mkdocs:latest
+        imagePullPolicy: Always
+        name: mkdocs-builder
+        args: ["build", "-c", "-d", "html"]
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /opt/data
+          name: mkdocs-data
       containers:
       - image: quay.io/pbertera/mkdocs:latest
         imagePullPolicy: Always
@@ -22,3 +33,10 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
+        volumeMounts:
+        - mountPath: /opt/data
+          name: mkdocs-data
+      volumes:
+      - name: mkdocs-data
+        persistentVolumeClaim:
+          claimName: mkdocs
