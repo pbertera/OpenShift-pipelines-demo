@@ -1,5 +1,6 @@
 # Deployment of a mkdocs website with OpenShift pipelines
 
+This is a demo
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Commands
