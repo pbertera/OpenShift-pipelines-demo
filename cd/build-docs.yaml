@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-mkdocs
+spec:
+  workspaces:
+  - name: html-workspace
+    mountPath: /opt/html
+  - name: shared-workspace
+    mountPath: /opt/data
+  params:
+    - name: IMAGE
+      description: The mkdocs image to use
+      type: string
+      default: "quay.io/pbertera/mkdocs:latest"
+  steps:
+    - name: build
+      image: $(inputs.params.IMAGE)
+      workingDir: /opt/data
+      args: ["build", "-c", "-d", "/opt/html"]
+#    - name: pause
+#      image: docker
+#      args: ["sleep", "6000"]

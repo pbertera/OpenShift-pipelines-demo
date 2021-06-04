@@ -1,0 +1,131 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-deploy
+spec:
+  workspaces:
+  - name: shared-workspace
+  - name: html-workspace
+  params:
+  - name: deployment-name
+    type: string
+    description: name of the deployment to be patched
+  - name: git-url
+    type: string
+    description: url of the git repo for the code of deployment
+  - name: git-revision
+    type: string
+    description: revision to be used from repo of the code for deployment
+    default: "main"
+  - name: mkdocs-image
+    type: string
+    description: mkdocs image to build from the code
+  - name: webserver-image
+    type: string
+    description: webserver image to use
+  - name: webserver-container
+    type: string
+    description: webserver container name to update
+  - name: CONTEXT
+    type: string
+    description: the image build context
+  - name: action
+    type: string
+    description: >
+      the action the pipeline should perform: 
+      - "build-image" builds the container image
+      - "build-docs" builds the documentation
+    default: "build-docs"
+  tasks:
+  - name: fetch-repository
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    workspaces:
+    - name: output
+      workspace: shared-workspace
+    params:
+    - name: url
+      value: $(params.git-url)
+    - name: subdirectory
+      value: ""
+    - name: deleteExisting
+      value: "true"
+    - name: revision
+      value: $(params.git-revision)
+  - name: build-mkdocs-image
+    when:
+    - input: "$(params.action)"
+      operator: in
+      values: ["build-image"]
+    taskRef:
+      name: buildah
+      kind: ClusterTask
+    params:
+    - name: CONTEXT
+      value: $(params.CONTEXT)
+    - name: IMAGE
+      value: $(params.mkdocs-image)
+    workspaces:
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - fetch-repository
+  - name: apply-manifests
+    when:
+    - input: "$(params.action)"
+      operator: in
+      values: ["build-image"]
+    taskRef:
+      name: apply-manifests
+    workspaces:
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - build-mkdocs-image
+  - name: update-webserver-deployment
+    when:
+    - input: "$(params.action)"
+      operator: in
+      values: ["build-image"]
+    taskRef:
+      name: update-deployment
+    params:
+    - name: deployment
+      value: $(params.deployment-name)
+    - name: IMAGE
+      value: $(params.webserver-image)
+    - name: container
+      value: $(params.webserver-container)
+    runAfter:
+    - apply-manifests
+  - name: build-docs
+    taskRef:
+      name: build-mkdocs
+    params:
+    - name: IMAGE
+      value: $(params.mkdocs-image)
+    workspaces:
+    - name: shared-workspace
+      workspace: shared-workspace
+    - name: html-workspace
+      workspace: html-workspace
+    runAfter:
+    - build-mkdocs-image
+  - name: build-docs-only
+    when:
+    - input: "$(params.action)"
+      operator: notin
+      values: ["build-image"]
+    taskRef:
+      name: build-mkdocs
+    params:
+    - name: IMAGE
+      value: $(params.mkdocs-image)
+    workspaces:
+    - name: shared-workspace
+      workspace: shared-workspace
+    - name: html-workspace
+      workspace: html-workspace
+    runAfter:
+    - fetch-repository

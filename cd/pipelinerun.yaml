@@ -1,0 +1,38 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-and-deploy-run-
+  labels:
+    tekton.dev/pipeline: build-and-deploy
+spec:
+  params:
+  - name: CONTEXT
+    value: build
+  - name: mkdocs-image
+    value: image-registry.openshift-image-registry.svc:5000/demo-pipelines/mkdocs
+  - name: webserver-image
+    value: registry.access.redhat.com/ubi8/nginx-118
+  - name: webserver-container
+    value: "webserver"
+  - name: deployment-name
+    value: mkdocs-demo
+  - name: git-url
+    value: https://github.com/pbertera/OpenShift-pipelines-demo
+  - name: action
+    #value: build-image
+    value: build-docs
+  pipelineRef:
+    name: build-and-deploy
+  serviceAccountName: pipeline
+  workspaces:
+  - name: shared-workspace
+    volumeClaimTemplate:
+      spec:
+        accessModes: 
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Mi
+  - name: html-workspace
+    persistentVolumeClaim:
+      claimName: html-mkdocs
