@@ -1,6 +1,6 @@
-# Deployment of a mkdocs website with OpenShift pipelines
+# OpenShift Pipelines Demo
 
-This is a demo.
+This website is a tutorial about OpenShift Pipelines built with OpenShift Pipelines.
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
