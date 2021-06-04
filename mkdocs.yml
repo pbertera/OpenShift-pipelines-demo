@@ -1,3 +1,9 @@
-site_name: My Docs
+site_name: OpenShift Pipelines Demo
 theme:
   name: material
+pages:
+  - Home: index.md
+  - Setup: setup.md
+  - Deployment: deployment.md
+  - 'The Pipeline': pipeline.md
+  - Automations: automations.md
