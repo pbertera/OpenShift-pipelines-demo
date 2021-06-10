@@ -14,15 +14,6 @@ spec:
       labels:
         app: mkdocs-demo
     spec:
-#      initContainers:
-#      - image: quay.io/pbertera/mkdocs:latest
-#        imagePullPolicy: Always
-#        name: mkdocs-builder
-#        args: ["build", "-c", "-d", "/tmp/html"]
-#        ports:
-#        volumeMounts:
-#        - mountPath: /opt/data
-#          name: mkdocs-data
       containers:
       - image: registry.access.redhat.com/ubi8/nginx-118
         args: ['nginx', '-g', 'daemon off;']
@@ -35,9 +26,6 @@ spec:
         - mountPath: /opt/app-root/src/
           name: html-mkdocs
       volumes:
-#      - name: mkdocs-data
-#        persistentVolumeClaim:
-#          claimName: mkdocs
       - name: html-mkdocs
         persistentVolumeClaim:
           claimName: html-mkdocs

@@ -10,15 +10,7 @@ spec:
     value: $(body.repository.name)
   - name: git-revision
     value: $(body.head_commit.id)
-  - name: CONTEXT
-    value: build
   - name: mkdocs-image
-    value: image-registry.openshift-image-registry.svc:5000/demo-pipelines/mkdocs
-  - name: webserver-image
-    value: registry.access.redhat.com/ubi8/nginx-118
-  - name: webserver-container
-    value: "webserver"
-  - name: deployment-name
-    value: mkdocs-demo
+    value: $(body.mkdocs-image)
   - name: action
     value: $(body.action)
