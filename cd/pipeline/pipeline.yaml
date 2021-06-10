@@ -75,14 +75,14 @@ spec:
     when:
     - input: "$(params.action)"
       operator: in
-      values: ["build-image"]
+      values: ["deploy"]
     taskRef:
       name: apply-manifests
     workspaces:
     - name: source
       workspace: shared-workspace
     runAfter:
-    - build-mkdocs-image
+    - fetch-repository
   - name: update-webserver-deployment
     when:
     - input: "$(params.action)"
