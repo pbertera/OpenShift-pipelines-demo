@@ -1,0 +1,8 @@
+{
+    "repository": {
+        "url": "https://github.com/pbertera/OpenShift-pipelines-demo",
+        "name": "OpenShift-pipelines-demo",
+        "head_commit": { "id": "main" }
+    },
+    "action": "build-image"
+}
