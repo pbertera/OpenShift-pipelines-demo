@@ -348,7 +348,14 @@ EOF
 $ oc create -f cd/pvc.yaml
 </code></pre>
 <ul>
-<li>Create the Pipelines resurces</li>
+<li>Create the Task resources</li>
+</ul>
+<pre><code>$ oc create -f https://raw.githubusercontent.com/pbertera/OpenShift-pipelines-demo/main/cd/tasks/build-docs.yaml
+$ oc create -f https://raw.githubusercontent.com/pbertera/OpenShift-pipelines-demo/main/cd/tasks/apply-manifests.yaml
+$ oc create -f https://raw.githubusercontent.com/pbertera/OpenShift-pipelines-demo/main/cd/tasks/update-deployment.yaml
+</code></pre>
+<ul>
+<li>Create the Pipeline resurce</li>
 </ul>
 <pre><code>$ oc create -f https://raw.githubusercontent.com/pbertera/OpenShift-pipelines-demo/main/cd/pipeline/pipeline.yaml
 </code></pre>
