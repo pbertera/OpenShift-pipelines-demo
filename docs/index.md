@@ -1,14 +1,18 @@
 # OpenShift Pipelines Demo
 
-This website is a tutorial about OpenShift Pipelines built with OpenShift Pipelines.
+This website is an OpenShift Pipelines demo.
 
 ## How this application works
 
 This application is a static website built with [mkdocs](https://www.mkdocs.org/). The code of the demo is hosted on [GitHub](https://github.com/pbertera/OpenShift-pipelines-demo)
 
-## Structure
+![the application](images/application.png)
 
-This project is structured in this way:
+## Project Structure
+
+The following image represents the project structure
+
+![the structure](images/structure.png)
 
 - `build/` is a folder container the `Dockerfile` and the needed resourced to build the mkdocs image
 - `cd/` this folder contains the tasks, pipeline and pipelinerun manifests definition
@@ -16,3 +20,5 @@ This project is structured in this way:
 - `k8s/` contains all the needed manifest to deploy the application on Kubernetes
 - `mkdocs.yml` the main mkdocs configuration file
 - `Makefile` a Makefile do locally build the image and start a container for local development purpose
+
+

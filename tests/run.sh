@@ -1,8 +1,7 @@
 #!/bin/bash
-
 action=$1
 ns=$(oc project -q)
-cat <<EOF | curl -v --header "Content-Type: application/json" --request POST --data @- $(oc  get route el-mkdocs --template='http://{{.spec.host}}')
+cat << EOF | curl $(oc  get route el-mkdocs --template='http://{{.spec.host}}') --header "Content-Type: application/json" -v --data @-
 {
     "repository": {
         "url": "https://github.com/pbertera/OpenShift-pipelines-demo",
@@ -12,3 +11,4 @@ cat <<EOF | curl -v --header "Content-Type: application/json" --request POST --d
     "action": "${action}",
     "mkdocs-image": "image-registry.openshift-image-registry.svc:5000/${ns}/mkdocs"
 }
+EOF
