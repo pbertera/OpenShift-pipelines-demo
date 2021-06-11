@@ -35,7 +35,15 @@ EOF
 $ oc create -f cd/pvc.yaml
 ```
 
-- Create the Pipelines resurces
+- Create the Task resources
+
+```
+$ oc create -f https://raw.githubusercontent.com/pbertera/OpenShift-pipelines-demo/main/cd/tasks/build-docs.yaml
+$ oc create -f https://raw.githubusercontent.com/pbertera/OpenShift-pipelines-demo/main/cd/tasks/apply-manifests.yaml
+$ oc create -f https://raw.githubusercontent.com/pbertera/OpenShift-pipelines-demo/main/cd/tasks/update-deployment.yaml
+```
+
+- Create the Pipeline resurce
 
 ```
 $ oc create -f https://raw.githubusercontent.com/pbertera/OpenShift-pipelines-demo/main/cd/pipeline/pipeline.yaml
