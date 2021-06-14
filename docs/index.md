@@ -1,6 +1,6 @@
 # OpenShift Pipelines Demo
 
-This website hosts an OpenShift pipelines demo and is itself built with Pipelines.
+This website hosts an OpenShift pipelines demo and is itself built with Pipelines
 
 ## How this application works
 
@@ -20,5 +20,3 @@ The following image represents the project structure
 - `k8s/` contains all the needed manifest to deploy the application on Kubernetes
 - `mkdocs.yml` the main mkdocs configuration file
 - `Makefile` a Makefile do locally build the image and start a container for local development purpose
-
-
