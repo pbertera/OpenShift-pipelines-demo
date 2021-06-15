@@ -4,7 +4,7 @@ ns=$(oc project -q)
 cat << EOF | curl $(oc  get route el-mkdocs --template='http://{{.spec.host}}') --header "Content-Type: application/json" -v --data @-
 {
     "repository": {
-        "url": "https://github.com/pbertera/OpenShift-pipelines-demo",
+        "html_url": "https://github.com/pbertera/OpenShift-pipelines-demo",
         "name": "OpenShift-pipelines-demo",
         "head_commit": { "id": "main" }
     },
