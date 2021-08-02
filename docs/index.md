@@ -1,6 +1,7 @@
 # OpenShift Pipelines Demo
 
 This website hosts an OpenShift pipelines demo and is itself built with Pipelines.
+Demo
 
 ## How this application works
 
