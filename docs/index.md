@@ -2,6 +2,8 @@
 
 This website hosts an OpenShift pipelines demo and is itself built with Pipelines.
 
+This is a demo
+
 ## How this application works
 
 This application is a static website built with [mkdocs](https://www.mkdocs.org/). The code of the demo is hosted on [GitHub](https://github.com/pbertera/OpenShift-pipelines-demo)
